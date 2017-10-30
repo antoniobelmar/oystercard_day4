@@ -15,13 +15,9 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def touch_in
     raise "You need a balance of at least #{Oystercard::MIN_FARE} to travel." if check_min_fare
-    @in_journey = true
+    change_journey_status
   end
 
   def in_journey?
@@ -29,10 +25,15 @@ class Oystercard
   end
 
   def touch_out
-    @in_journey = false
+    deduct(MIN_FARE)
+    change_journey_status
   end
 
   private
+
+  def deduct(amount)
+    @balance -= amount
+  end
 
   def check_max_balance(top_up_amount)
     @balance + top_up_amount > CARD_LIMIT
@@ -40,6 +41,11 @@ class Oystercard
 
   def check_min_fare
     @balance < MIN_FARE
+  end
+
+  def change_journey_status
+    return @in_journey = true unless @in_journey
+    @in_journey = false
   end
 
 end
