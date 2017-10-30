@@ -33,6 +33,30 @@ describe Oystercard do
       subject.top_up(9)
       subject.deduct(5)
       expect(subject.balance).to eq (4)
-    end	
+    end
 	end
+
+  describe "#touch_in" do
+    it "responds to touch_in" do
+      expect(subject).to respond_to(:touch_in)
+    end
+
+    it "expects in journey to be true after touching in" do
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+  end
+
+  describe "#touch_out" do
+    it "responds to touch_out" do
+      expect(subject).to respond_to(:touch_out)
+    end
+
+    it "expects in journey to be false after touching out" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
+
 end
