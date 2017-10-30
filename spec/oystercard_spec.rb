@@ -5,19 +5,12 @@ describe Oystercard do
   let(:station) {double :station}
 
   describe "#balance" do
-    it "responds to balance method" do
-      expect(subject).to respond_to(:balance)
-    end
-
     it "a new instance of an oystercard has a balance of 0" do
       expect(subject.balance).to eq(0)
     end
   end
 
   describe "#top_up" do
-    it 'responds to top_up' do
-      expect(subject).to respond_to(:top_up).with(1).argument
-    end
     it 'when topping up a new oystercard with 10, balance increases to 10' do
       subject.top_up(10)
       expect(subject.balance).to eq(10)
@@ -28,10 +21,6 @@ describe Oystercard do
   end
 
   describe "#touch_in" do
-    it "responds to touch_in at a station as argument" do
-      expect(subject).to respond_to(:touch_in).with(1).argument
-    end
-
     it "expects in journey to be true after touching in" do
       subject.top_up(2)
       subject.touch_in(station)
@@ -44,13 +33,8 @@ describe Oystercard do
   end
 
   describe "#touch_out" do
-    it "responds to touch_out" do
-      expect(subject).to respond_to(:touch_out).with(1).argument
-    end
-
     before { subject.top_up(2) }
     before { subject.touch_in(station) }
-
     it "expects in journey to be false after touching out" do
       subject.touch_out(station)
       expect(subject).not_to be_in_journey
