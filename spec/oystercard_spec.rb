@@ -45,33 +45,56 @@ describe Oystercard do
 
   describe "#touch_out" do
     it "responds to touch_out" do
-      expect(subject).to respond_to(:touch_out)
+      expect(subject).to respond_to(:touch_out).with(1).argument
     end
 
-    before { subject.top_up(2) } 
-    before { subject.touch_in(station) } 
+    before { subject.top_up(2) }
+    before { subject.touch_in(station) }
 
     it "expects in journey to be false after touching out" do
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject).not_to be_in_journey
     end
 
     it "expects minimum fare to be deducted at touch out" do
-      expect{subject.touch_out}.to change{subject.balance}.by(-Oystercard::MIN_FARE)
+      expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
     end
   end
 
   describe '#entry_station' do
-    before { subject.top_up(2) } 
-    before { subject.touch_in(station) } 
-
+    before { subject.top_up(2) }
+    before { subject.touch_in(station) }
     it 'shows entry station after touching in' do
       expect(subject.entry_station).to eq (station)
     end
-    it 'shows entry station as nil after touching out' do 
-      subject.touch_out
+    it 'shows entry station as nil after touching out' do
+      subject.touch_out(station)
       expect(subject.entry_station).to eq nil
     end
+  end
+
+  describe "#journeys" do
+
+    describe "#journeys on initializing" do
+        it "check journeys is an array" do
+        expect(subject.journeys).to eq([])
+      end
+    end
+
+    describe "#journey storing entries and exits" do
+      before { subject.top_up(10) }
+      before { subject.touch_in(station) }
+      before { subject.touch_out(station) }
+
+      it "stores entry station and exit station" do
+        expect(subject.journeys).to include({ entry: station, exit: station })
+      end
+
+      it "checks that touching in and out creates one and only one journey" do
+        expect(subject.journeys.count).to eq(1)
+      end
+    end
+
   end
 
 end
