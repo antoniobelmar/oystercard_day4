@@ -13,6 +13,10 @@ class Oystercard
     @balance += amount
   end
 
+  def deduct(amount)
+    @balance -= amount
+  end
+
   private
 
   def check_max_balance(top_up_amount)
