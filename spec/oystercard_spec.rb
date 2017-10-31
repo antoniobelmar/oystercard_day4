@@ -45,18 +45,6 @@ describe Oystercard do
     end
   end
 
-  describe '#entry_station' do
-    before { subject.top_up(2) }
-    before { subject.touch_in(station) }
-    it 'shows entry station after touching in' do
-      expect(subject.entry_station).to eq (station)
-    end
-    it 'shows entry station as nil after touching out' do
-      subject.touch_out(station)
-      expect(subject.entry_station).to eq nil
-    end
-  end
-
   describe "#journeys" do
 
     describe "#journeys on initializing" do
@@ -64,6 +52,13 @@ describe Oystercard do
         expect(subject.journeys).to eq([])
       end
     end
+
+    it "stores entry station upon touch_in" do
+      subject.top_up(10)
+      subject.touch_in(station)
+      expect(subject.journeys.last[:entry]).to eq(station)
+    end
+
 
     describe "#journey storing entries and exits" do
       before { subject.top_up(10) }
@@ -77,6 +72,7 @@ describe Oystercard do
       it "checks that touching in and out creates one and only one journey" do
         expect(subject.journeys.count).to eq(1)
       end
+
     end
 
   end

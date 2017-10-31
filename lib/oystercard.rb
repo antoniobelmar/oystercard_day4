@@ -1,13 +1,12 @@
 class Oystercard
 
-  attr_reader :balance, :entry_station, :journeys
+  attr_reader :balance, :journeys
 
   CARD_LIMIT = 90
   MIN_FARE = 1
 
   def initialize
     @balance = 0
-    @entry_station = nil
     @journeys = []
   end
 
@@ -18,18 +17,16 @@ class Oystercard
 
   def touch_in(station)
     raise "You need a balance of at least #{Oystercard::MIN_FARE} to travel." if check_min_fare
-    @entry_station = station
+    @journeys << {entry: station}
   end
 
   def in_journey?
-    return true unless @entry_station == nil
-    false
+    !(@journeys.last.has_key?(:exit))
   end
 
   def touch_out(station)
     deduct(MIN_FARE)
-    @journeys << { entry: @entry_station, exit: station }
-    @entry_station = nil
+    @journeys.last[:exit] = station
   end
 
   private
