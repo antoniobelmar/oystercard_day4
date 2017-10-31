@@ -5,7 +5,6 @@ class Oystercard
   attr_reader :balance, :journey_history
 
   CARD_LIMIT = 90
-  MIN_FARE = 1
 
   def initialize
     @balance = 0
@@ -19,7 +18,8 @@ class Oystercard
   end
 
   def touch_in(station)
-    raise "You need a balance of at least #{Oystercard::MIN_FARE} to travel." if check_min_fare
+    raise "You need a balance of at least #{Journey::MIN_FARE} to travel." if check_min_fare
+    deduct(@journey.fare(self)) if in_journey?
     @journey_history << @journey.start_journey(station)
   end
 
@@ -28,9 +28,9 @@ class Oystercard
   end
 
   def touch_out(station)
-    deduct(MIN_FARE)
     @journey_history << @journey.finish_journey(station) unless in_journey?
     @journey_history.last[:exit] = @journey.finish_journey(station) if in_journey?
+    deduct(@journey.fare(self))
   end
 
   private
@@ -44,7 +44,7 @@ class Oystercard
   end
 
   def check_min_fare
-    @balance < MIN_FARE
+    @balance < Journey::MIN_FARE
   end
 
 end

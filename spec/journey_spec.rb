@@ -3,6 +3,7 @@ require "journey"
 describe Journey do
 
   let(:station) { double(:station) }
+  let(:card) { double(:oystercard) }
 
   describe "#entry_station" do
     it "shows nil as entry station when calling entry_station on new journey" do
@@ -56,4 +57,32 @@ describe Journey do
     end
   end
 
+  describe "#in_journey?" do
+    it "ensures calling in_journey? on an instance returns false if entry station is nil" do
+      expect(subject.in_journey?).to eq false
+    end
+
+    it "ensures calling in_journey? on an instance returns true if entry station is not nil" do
+      subject.start_journey(station)
+      expect(subject.in_journey?).to eq true
+    end
+  end
+
+  describe "#fare" do
+    it "ensures fare returns min_fare if entry and exit station in journey history" do
+      allow(card).to receive(:journey_history).and_return([{ entry: 1, exit: 1 }])
+      expect(subject.fare(card)).to eq(Journey::MIN_FARE)
+    end
+    it "ensures fare returns penalty_fare if no entry/exit station in journey history" do
+      allow(card).to receive(:journey_history).and_return([{ entry: nil }])
+      expect(subject.fare(card)).to eq(Journey::PENALTY_FARE)
+    end
+  end
+
+  describe "#current_journey" do
+    it "ensures current journey returns a hash with current entry and exit stations" do
+      subject.start_journey(station)
+      expect(subject.current_journey).to eq( { entry: station, exit: nil } )
+    end
+  end
 end

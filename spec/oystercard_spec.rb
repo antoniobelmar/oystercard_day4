@@ -2,7 +2,8 @@ require "oystercard"
 
 describe Oystercard do
 
-  let(:station) {double :station}
+  let(:station) { double :station }
+  let(:journey) { double :journey }
 
   describe "#balance" do
     it "a new instance of an oystercard has a balance of 0" do
@@ -28,21 +29,35 @@ describe Oystercard do
     end
 
     it "raises an error if balance is less than minimum fare" do
-      expect{subject.touch_in(station)}.to raise_error "You need a balance of at least #{Oystercard::MIN_FARE} to travel."
+      expect{subject.touch_in(station)}.to raise_error "You need a balance of at least #{Journey::MIN_FARE} to travel."
     end
+
+    it "deducts penalty fare if touching in while in journey" do
+      subject.top_up(10)
+      subject.touch_in(station)
+      p "HERE", subject.journey_history.last
+      expect{ subject.touch_in(station) }.to change{subject.balance}.by(-Journey::PENALTY_FARE)
+    end
+
   end
 
   describe "#touch_out" do
     before { subject.top_up(2) }
-    before { subject.touch_in(station) }
+
     it "expects in journey to be false after touching out" do
       subject.touch_out(station)
       expect(subject).not_to be_in_journey
     end
 
     it "expects minimum fare to be deducted at touch out" do
-      expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
+      subject.touch_in(station)
+      expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Journey::MIN_FARE)
     end
+
+    it "expects penalty_fare to be deducted at touch out if not in journey" do
+      expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Journey::PENALTY_FARE)
+    end
+
   end
 
   describe "#journey_history" do
