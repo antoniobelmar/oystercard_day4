@@ -24,8 +24,7 @@ class Oystercard
   end
 
   def in_journey?
-    return false if @journey_history.empty?
-    @journey_history.last[:entry]!=nil && @journey_history.last[:exit]==nil
+    @journey.in_journey?
   end
 
   def touch_out(station)
