@@ -11,33 +11,21 @@ describe Journey do
     end
   end
 
-  describe "#exit_station" do
-    it "shows nil as exit station when calling entry_station on new journey"do
-      expect(Journey.new.exit_station).to eq nil
-    end
-  end
-
   describe "#start_journey" do
     it "change entry_station into station passed as argument" do
       subject.start_journey(station)
       expect(subject.entry_station).to eq(station)
     end
 
-    it "changes exit_station to nil when called" do
-      subject.finish_journey(station)
-      subject.start_journey(station)
-      expect(subject.exit_station).to eq nil
-    end
-
     it "always returns a hash with the argument as entry station and nil as exit station" do
-      expect(subject.start_journey(station)).to eq({entry:station, exit:nil})
+      subject.finish_journey(station)
+      expect(subject.start_journey(station)).to eq({ entry: station, exit: nil })
     end
   end
 
   describe "#finish_journey" do
     it "change exit_station into station passed as argument" do
-      subject.finish_journey(station)
-      expect(subject.exit_station).to eq(station)
+      expect(subject.finish_journey(station)).to eq({ entry: nil, exit: station })
     end
 
     it "changes entry_station to nil when called" do
@@ -76,13 +64,6 @@ describe Journey do
     it "ensures fare returns penalty_fare if no entry/exit station in journey history" do
       allow(card).to receive(:journey_history).and_return([{ entry: nil }])
       expect(subject.fare(card)).to eq(Journey::PENALTY_FARE)
-    end
-  end
-
-  describe "#current_journey" do
-    it "ensures current journey returns a hash with current entry and exit stations" do
-      subject.start_journey(station)
-      expect(subject.current_journey).to eq( { entry: station, exit: nil } )
     end
   end
 end

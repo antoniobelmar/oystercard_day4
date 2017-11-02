@@ -1,30 +1,23 @@
 class Journey
 
-  attr_reader :entry_station, :exit_station
+  attr_reader :entry_station
 
   MIN_FARE = 1
   PENALTY_FARE = 6
 
   def initialize
     @entry_station = nil
-    @exit_station = nil
   end
 
   def start_journey(station)
     @entry_station = station
-    @exit_station = nil
-    current_journey
+    current_journey(nil)
   end
 
-  def finish_journey(station)
-    @exit_station = station
-    return current_journey unless in_journey?
+  def finish_journey(exit_station)
+    return current_journey(exit_station) unless in_journey?
     @entry_station = nil
-    @exit_station
-  end
-
-  def current_journey
-    { entry: @entry_station, exit: @exit_station }
+    exit_station
   end
 
   def in_journey?
@@ -35,4 +28,12 @@ class Journey
     return PENALTY_FARE if card.journey_history.last[:entry] == nil || card.journey_history.last[:exit] == nil
     MIN_FARE
   end
+
+
+private
+
+  def current_journey(exit_station)
+    { entry: @entry_station, exit: exit_station }
+  end
+
 end

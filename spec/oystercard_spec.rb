@@ -35,7 +35,6 @@ describe Oystercard do
     it "deducts penalty fare if touching in while in journey" do
       subject.top_up(10)
       subject.touch_in(station)
-      p "HERE", subject.journey_history.last
       expect{ subject.touch_in(station) }.to change{subject.balance}.by(-Journey::PENALTY_FARE)
     end
 
