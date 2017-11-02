@@ -1,7 +1,7 @@
 require_relative "journey"
 
 class JourneyLog
-  attr_reader :journey, :journey_log
+  attr_reader :journey_log
 
   def initialize
     @journey=Journey.new

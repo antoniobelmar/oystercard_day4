@@ -5,9 +5,6 @@ describe JourneyLog do
   let (:station) { double(:station) }
 
   describe "#initialize" do
-    it "initializes with a journey instance variable" do
-      expect(subject).to respond_to(:journey)
-    end
 
     it "initializes with a journey_log variable that is an array" do
       expect(subject.journey_log).to be_kind_of(Array)

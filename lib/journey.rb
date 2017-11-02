@@ -1,7 +1,5 @@
 class Journey
 
-  attr_reader :entry_station
-
   MIN_FARE = 1
   PENALTY_FARE = 6
 
@@ -26,7 +24,7 @@ class Journey
 
   def fare(log)
     return PENALTY_FARE if log.last[:entry] == nil || log.last[:exit] == nil
-    MIN_FARE
+    MIN_FARE+(log.last[:entry].zone - log.last[:exit].zone).abs
   end
 
 

@@ -38,7 +38,8 @@ describe Oystercard do
   describe "#touch_out" do
     before { subject.top_up(2) }
 
-    it "expects minimum fare to be deducted at touch out" do
+    it "expects minimum fare to be deducted at touch out if travelling within the same zone" do
+      allow(station).to receive(:zone).and_return(1)
       subject.touch_in(station)
       expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Journey::MIN_FARE)
     end
