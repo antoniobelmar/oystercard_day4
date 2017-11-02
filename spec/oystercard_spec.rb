@@ -59,46 +59,4 @@ describe Oystercard do
 
   end
 
-  describe "#journey_history" do
-
-    describe "#journeys on initializing and touch_in" do
-      it "check journeys is an array" do
-        expect(subject.journey_history).to be_kind_of(Array)
-      end
-
-      before { subject.top_up(10) }
-      before { subject.touch_in(station) }
-
-      it "stores entry station upon touch_in" do
-        expect(subject.journey_history.last[:entry]).to eq(station)
-      end
-
-      it "stores exit station as nil upon touch_in" do
-        expect(subject.journey_history.last[:exit]).to eq nil
-      end
-    end
-
-    describe "#journeys on touch_out" do
-
-      before { subject.top_up(10) }
-      before { subject.touch_in(station) }
-      before { subject.touch_out(station) }
-
-      it "stores entry station and exit station when touching in and out" do
-        expect(subject.journey_history).to include({ entry: station, exit: station })
-      end
-
-      it "checks that touching in and out creates one and only one journey" do
-        expect(subject.journey_history.count).to eq(1)
-      end
-
-      it "stores entry_station as nil upon touch_out if not in journey" do
-        subject.touch_out(station)
-        expect(subject.journey_history.last[:entry]).to eq nil
-      end
-
-    end
-
-  end
-
 end

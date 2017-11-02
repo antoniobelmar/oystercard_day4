@@ -24,8 +24,8 @@ class Journey
     @entry_station != nil
   end
 
-  def fare(card)
-    return PENALTY_FARE if card.journey_history.last[:entry] == nil || card.journey_history.last[:exit] == nil
+  def fare(log)
+    return PENALTY_FARE if log.last[:entry] == nil || log.last[:exit] == nil
     MIN_FARE
   end
 

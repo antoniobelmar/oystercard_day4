@@ -4,6 +4,7 @@ describe Journey do
 
   let(:station) { double(:station) }
   let(:card) { double(:oystercard) }
+  let(:log) { double(:journeylog) }
 
   describe "#entry_station" do
     it "shows nil as entry station when calling entry_station on new journey" do
@@ -57,13 +58,13 @@ describe Journey do
   end
 
   describe "#fare" do
-    it "ensures fare returns min_fare if entry and exit station in journey history" do
-      allow(card).to receive(:journey_history).and_return([{ entry: 1, exit: 1 }])
-      expect(subject.fare(card)).to eq(Journey::MIN_FARE)
+    it "ensures fare returns min_fare if entry and exit station in journey log" do
+      allow(log).to receive(:journey_log).and_return([{ entry: 1, exit: 1 }])
+      expect(subject.fare(log.journey_log)).to eq(Journey::MIN_FARE)
     end
     it "ensures fare returns penalty_fare if no entry/exit station in journey history" do
-      allow(card).to receive(:journey_history).and_return([{ entry: nil }])
-      expect(subject.fare(card)).to eq(Journey::PENALTY_FARE)
+      allow(log).to receive(:journey_log).and_return([{ entry: nil }])
+      expect(subject.fare(log.journey_log)).to eq(Journey::PENALTY_FARE)
     end
   end
 end
