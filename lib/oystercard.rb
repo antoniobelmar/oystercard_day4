@@ -22,16 +22,16 @@ class Oystercard
     @journey_log.start(station)
   end
 
-  def in_journey?
-    @journey_log.in_journey?
-  end
-
   def touch_out(station)
     @journey_log.finish(station)
     deduct(@journey_log.fare)
   end
 
   private
+
+  def in_journey?
+    @journey_log.in_journey?
+  end
 
   def deduct(amount)
     @balance -= amount
