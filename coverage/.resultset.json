@@ -283,7 +283,6 @@
         1,
         4,
         null,
-        null,
         null
       ],
       "/Users/AntonioBelmardaCosta/Desktop/Projects/oystercard-challenge/day-4/spec/station_spec.rb": [
@@ -329,6 +328,6 @@
         null
       ]
     },
-    "timestamp": 1509727817
+    "timestamp": 1509727950
   }
 }

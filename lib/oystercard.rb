@@ -44,5 +44,4 @@ class Oystercard
   def check_min_fare
     @balance < MIN_FARE
   end
-
 end
