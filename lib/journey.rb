@@ -39,5 +39,4 @@ class Journey
   def variable_fare(log)
     (log.last[:entry].zone - log.last[:exit].zone).abs
   end
-
 end

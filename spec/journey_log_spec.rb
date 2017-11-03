@@ -1,7 +1,7 @@
 require "journey_log"
 
 describe JourneyLog do
-  let (:station) { double(:station) }
+  let(:station) { double(:station) }
 
   describe "#initialize" do
 
@@ -29,5 +29,4 @@ describe JourneyLog do
       expect(subject.journey_log.last).to eq({ entry: "station1", exit: "station2" })
     end
   end
-
 end

@@ -24,5 +24,4 @@ class JourneyLog
   def in_journey?
     @journey.in_journey?
   end
-
 end

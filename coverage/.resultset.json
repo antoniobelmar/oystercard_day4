@@ -33,7 +33,6 @@
         1,
         null,
         null,
-        null,
         null
       ],
       "/Users/AntonioBelmardaCosta/Desktop/Projects/oystercard-challenge/day-4/lib/journey_log.rb": [
@@ -62,7 +61,6 @@
         null,
         1,
         7,
-        null,
         null,
         null
       ],
@@ -107,7 +105,6 @@
         null,
         1,
         4,
-        null,
         null,
         null
       ],
@@ -243,7 +240,6 @@
         1,
         null,
         1,
-        null,
         1,
         null,
         1,
@@ -330,10 +326,9 @@
         2,
         2,
         null,
-        null,
         null
       ]
     },
-    "timestamp": 1509726950
+    "timestamp": 1509727817
   }
 }

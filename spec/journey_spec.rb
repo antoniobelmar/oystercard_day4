@@ -26,7 +26,7 @@ describe Journey do
 
     it "returns a hash with the argument as exit station and nil as entry station if entry_station=nil" do
       subject.finish_journey(station)
-      expect(subject.finish_journey(station)).to eq({entry: nil, exit: station})
+      expect(subject.finish_journey(station)).to eq({ entry: nil, exit: station })
     end
 
     it "returns exit_station if entry_station is not new initially " do
