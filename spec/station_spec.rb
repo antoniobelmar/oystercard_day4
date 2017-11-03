@@ -1,7 +1,6 @@
 require 'station'
 
 describe Station do
-
   let(:station) { Station.new('Bank', 1) }
 
   # describe '#initialize' do
@@ -20,10 +19,10 @@ describe Station do
 
   describe 'initialize' do
     context 'when passing in a Zone number not between 1 and 6' do
-      it 'returns a fail error' do
-        expect{ Station.new('Bank', 7) }.to raise_error('Please enter zone number between 1 and 6')
-        expect{ Station.new('Bank', 0) }.to raise_error('Please enter zone number between 1 and 6')
-        expect{ Station.new('Bank', -1) }.to raise_error('Please enter zone number between 1 and 6')
+      [7, 0, -1].each do |zone|
+        it "returns a fail error for #{zone} " do
+          expect { Station.new('Bank', zone) }.to raise_error('Please enter zone number between 1 and 6')
+        end
       end
     end
   end

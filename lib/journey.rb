@@ -1,5 +1,4 @@
 class Journey
-
   MIN_FARE = 1
   PENALTY_FARE = 6
 
@@ -27,15 +26,14 @@ class Journey
     MIN_FARE + variable_fare(log)
   end
 
-
-private
+  private
 
   def current_journey(exit_station)
     { entry: @entry_station, exit: exit_station }
   end
 
   def penalty_due(log)
-    log.last[:entry] == nil || log.last[:exit] == nil
+    log.last[:entry].nil? || log.last[:exit].nil?
   end
 
   def variable_fare(log)

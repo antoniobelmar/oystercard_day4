@@ -5,7 +5,6 @@
         1,
         null,
         1,
-        null,
         3,
         null,
         1,
@@ -69,7 +68,6 @@
       ],
       "/Users/AntonioBelmardaCosta/Desktop/Projects/oystercard-challenge/day-4/lib/journey.rb": [
         1,
-        null,
         1,
         1,
         null,
@@ -97,7 +95,6 @@
         4,
         null,
         null,
-        null,
         1,
         null,
         1,
@@ -118,7 +115,6 @@
         1,
         null,
         1,
-        null,
         10,
         1,
         5,
@@ -196,7 +192,6 @@
         1,
         null,
         1,
-        null,
         5,
         1,
         null,
@@ -217,7 +212,6 @@
         null,
         null,
         1,
-        null,
         1,
         2,
         null,
@@ -241,8 +235,6 @@
         null,
         1,
         4,
-        null,
-        null,
         null,
         null,
         null
@@ -302,7 +294,6 @@
         1,
         null,
         1,
-        null,
         3,
         null,
         null,
@@ -322,9 +313,9 @@
         1,
         1,
         1,
-        2,
-        2,
-        2,
+        3,
+        6,
+        null,
         null,
         null,
         null,
@@ -343,6 +334,6 @@
         null
       ]
     },
-    "timestamp": 1509702637
+    "timestamp": 1509726950
   }
 }

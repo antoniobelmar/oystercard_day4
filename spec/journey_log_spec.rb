@@ -1,7 +1,6 @@
 require "journey_log"
 
 describe JourneyLog do
-
   let (:station) { double(:station) }
 
   describe "#initialize" do
@@ -14,20 +13,20 @@ describe JourneyLog do
   describe "#start" do
     it "stores entry station as argument and exit station as nil when touching in " do
       subject.start(station)
-      expect(subject.journey_log.last).to eq( { entry: station, exit: nil} )
+      expect(subject.journey_log.last).to eq({ entry: station, exit: nil })
     end
   end
 
   describe "#finish" do
     it "stores exit station as argument and entry station as nil when touching out and not touching in" do
       subject.finish(station)
-      expect(subject.journey_log.last).to eq( { entry: nil, exit: station} )
+      expect(subject.journey_log.last).to eq({ entry: nil, exit: station })
     end
 
     it "stores entry and exit stations when touching in and out" do
       subject.start("station1")
       subject.finish("station2")
-      expect(subject.journey_log.last).to eq( { entry: "station1", exit: "station2"} )
+      expect(subject.journey_log.last).to eq({ entry: "station1", exit: "station2" })
     end
   end
 
