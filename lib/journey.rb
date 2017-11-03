@@ -23,8 +23,8 @@ class Journey
   end
 
   def fare(log)
-    return PENALTY_FARE if log.last[:entry] == nil || log.last[:exit] == nil
-    MIN_FARE+(log.last[:entry].zone - log.last[:exit].zone).abs
+    return PENALTY_FARE if penalty_due(log)
+    MIN_FARE + variable_fare(log)
   end
 
 
@@ -32,6 +32,14 @@ private
 
   def current_journey(exit_station)
     { entry: @entry_station, exit: exit_station }
+  end
+
+  def penalty_due(log)
+    log.last[:entry] == nil || log.last[:exit] == nil
+  end
+
+  def variable_fare(log)
+    (log.last[:entry].zone - log.last[:exit].zone).abs
   end
 
 end

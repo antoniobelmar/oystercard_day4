@@ -5,6 +5,7 @@ class Oystercard
   attr_reader :balance, :journey_log
 
   CARD_LIMIT = 90
+  MIN_FARE = Journey::MIN_FARE
 
   def initialize
     @balance = 0
@@ -17,7 +18,7 @@ class Oystercard
   end
 
   def touch_in(station)
-    raise "You need a balance of at least #{Journey::MIN_FARE} to travel." if check_min_fare
+    raise "You need a balance of at least #{MIN_FARE} to travel." if check_min_fare
     deduct(@journey_log.fare) if in_journey?
     @journey_log.start(station)
   end
@@ -42,7 +43,7 @@ class Oystercard
   end
 
   def check_min_fare
-    @balance < Journey::MIN_FARE
+    @balance < MIN_FARE
   end
 
 end

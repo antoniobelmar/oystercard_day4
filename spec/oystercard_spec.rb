@@ -24,7 +24,7 @@ describe Oystercard do
   describe "#touch_in" do
 
     it "raises an error if balance is less than minimum fare" do
-      expect{subject.touch_in(station)}.to raise_error "You need a balance of at least #{Journey::MIN_FARE} to travel."
+      expect{subject.touch_in(station)}.to raise_error "You need a balance of at least #{Oystercard::MIN_FARE} to travel."
     end
 
     it "deducts penalty fare if touching in while in journey" do
@@ -41,7 +41,7 @@ describe Oystercard do
     it "expects minimum fare to be deducted at touch out if travelling within the same zone" do
       allow(station).to receive(:zone).and_return(1)
       subject.touch_in(station)
-      expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Journey::MIN_FARE)
+      expect{ subject.touch_out(station) }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
     end
 
     it "expects penalty_fare to be deducted at touch out if not in journey" do

@@ -13,7 +13,7 @@ class JourneyLog
   end
 
   def finish(exit_station)
-    return @journey_log << @journey.finish_journey(exit_station) unless @journey.in_journey?
+    return @journey_log << @journey.finish_journey(exit_station) unless in_journey?
     @journey_log.last[:exit] = @journey.finish_journey(exit_station)
   end
 
